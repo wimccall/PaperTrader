@@ -1,3 +1,5 @@
+// This class is a wrapper for stock market api found on https://iextrading.com/
+
 class iextradingAPI {
     apiURL = 'https://api.iextrading.com/1.0/';
     socket = require('socket.io-client')('https://ws-api.iextrading.com/1.0/tops')
