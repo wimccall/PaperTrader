@@ -7,9 +7,9 @@ class stockSearch {
         this.updateTickerList();
     }
     updateTickerList() {
-        api.refDataSymbols(this._updateTickerListHelper.bind(this))
+        api.refDataSymbols(this._updateTickerListCB.bind(this))
     }
-    _updateTickerListHelper(data) {
+    _updateTickerListCB(data) {
         this.tickerInfo = data;
     }
 }

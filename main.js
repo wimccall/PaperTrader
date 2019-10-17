@@ -1,5 +1,6 @@
 // Modules to control application life and create native browser window
-const {app, BrowserWindow} = require('electron');
+const electron = require('electron');
+const {app, BrowserWindow} = electron;
 const path = require('path');
 
 // Keep a global reference of the window object, if you don't, the window will
@@ -7,18 +8,23 @@ const path = require('path');
 let mainWindow
 
 function createWindow () {
+  const { w, h } = electron.screen.getPrimaryDisplay().workAreaSize;
+
   // Create the browser window.
   mainWindow = new BrowserWindow({
-    width: 800,
-    height: 600,
+    width: w,
+    height: h,
+    backgroundColor: '#97e8e8',
+    resizable : true,
+    show: false,
     webPreferences: {
       nodeIntegration: true,
       preload: path.join(__dirname, 'preload.js')
     }
-  })
+  });
 
   // and load the index.html of the app.
-  mainWindow.loadFile('index.html')
+  mainWindow.loadFile('index.html');
 
   // Open the DevTools.
   // mainWindow.webContents.openDevTools()
@@ -29,6 +35,11 @@ function createWindow () {
     // in an array if your app supports multi windows, this is the time
     // when you should delete the corresponding element.
     mainWindow = null
+  })
+
+  mainWindow.once('ready-to-show', () => {
+    mainWindow.maximize();
+    mainWindow.show()
   })
 }
 
