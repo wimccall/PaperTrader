@@ -4,17 +4,17 @@
 // Usage:
 /*
     var reactor = new Reactor();
-    
+
     reactor.registerEvent('big bang');
-    
+
     reactor.addEventListener('big bang', function(){
       console.log('This is big bang listener yo!');
     });
-    
+
     reactor.addEventListener('big bang', function(){
       console.log('This is another big bang listener yo!');
     });
-    
+
     reactor.dispatchEvent('big bang');
 */
 
@@ -44,4 +44,9 @@ Reactor.prototype.dispatchEvent = function(eventName, eventArgs){
 
 Reactor.prototype.addEventListener = function(eventName, callback){
   this.events[eventName].registerCallback(callback);
+};
+
+let reactorExport = new Reactor();
+module.exports = {
+    reactor: reactorExport
 };

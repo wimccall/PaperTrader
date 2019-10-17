@@ -2,18 +2,9 @@
 // This class is very tightly coupled to the api interface.
 
 class stockSearch {
-    tickerInfo;
-    constructor() {
-        this.updateTickerList();
-    }
-    updateTickerList() {
-        api.refDataSymbols(this._updateTickerListCB.bind(this))
-    }
-    _updateTickerListCB(data) {
-        this.tickerInfo = data;
-    }
 }
 
+var searchExport = new stockSearch();
 module.exports = {
-    search: stockSearch
+    search: searchExport
 };

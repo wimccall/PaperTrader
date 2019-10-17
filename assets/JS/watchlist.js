@@ -35,15 +35,17 @@ class watchlistTable {
         this._priceElements.delete(tickerName);
     }
 
-    updateLastPrice(tickerName, price) {
-        this._priceElements.get(tickerName).innerHTML = price;
+    updateLastPrice(stock) {
+        if (this._watchList.includes(stock.symbol)) 
+            this._priceElements.get(stock.symbol).innerHTML = stock.lastSalePrice;
     }
 
     initializeTable() {
         for (var ticker of this._watchList) {
             this.insertRow(ticker);
         }
-        $( "#watchlistBody" ).sortable();
+        reactor.addEventListener('stockUpdated', this.updateLastPrice.bind(this))
+        $("#watchlistBody").sortable();
     }
 
     getList() {
@@ -51,6 +53,7 @@ class watchlistTable {
     }
 }
 
+var watchlistExport = new watchlistTable();
 module.exports = {
-    watchlist: watchlistTable
+    watchlist: watchlistExport
 };

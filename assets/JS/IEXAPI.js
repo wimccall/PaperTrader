@@ -62,6 +62,7 @@ class iextradingAPI {
     }
 }
 
+var apiExport = new iextradingAPI(); 
 module.exports = {
-    api: iextradingAPI
+    api: apiExport
 };
