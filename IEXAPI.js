@@ -18,6 +18,19 @@ class iextradingAPI {
         request.send()
     }
 
+    refDataSymbols(callback) {
+        // Create a request variable and assign a new XMLHttpRequest object to it.
+        var request = new XMLHttpRequest()
+    
+        // Open a new connection, using the GET request on the URL endpoint
+        request.open('GET', this.apiURL + '/ref-data/symbols', true)
+    
+        request.onload = function() { 
+            callback(JSON.parse(request.response)); 
+        };
+        request.send()
+    }
+
     subToTopsStream(symbols) {
         if (typeof symbols === "string") {
             this.socket.emit('subscribe', symbols);
@@ -30,10 +43,10 @@ class iextradingAPI {
 
     unsubFromTopsStream(symbols) {
         if (typeof symbols === "string") {
-            this.socket.emit('subscribe', symbols);
+            this.socket.emit('unsubscribe', symbols);
             this.subscribedSymbols.splice(this.subscribedSymbols.indexOf(symbols), 1 );
         } else { // array of symbols
-            this.socket.emit('subscribe', symbols.join());
+            this.socket.emit('unsubscribe', symbols.join());
             for( var i = this.subscribedSymbols.length-1; i--;){
                 if (symbols.includes(this.subscribedSymbols[i])) this.subscribedSymbols.splice(i, 1);
             }

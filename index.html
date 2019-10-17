@@ -3,11 +3,12 @@
   <head>
     <meta charset="UTF-8">
     <title>Market moves</title>
+    <link rel="stylesheet" type="text/css" href="./global.css">
   </head>
   <body>
     <h1>Watch:</h1>
     <div>
-    <table>
+    <table id="watchlist">
       <thead>
         <tr>
           <th>
@@ -16,6 +17,8 @@
           <th>
             Last price
           </th>
+          <th>
+          </th>
         </tr>
       </thead>
       <tbody id="watchlistBody">
@@ -23,6 +26,8 @@
     </table>
     </div>
     <!-- You can also require other files to run in this process -->
+    <script>window.$ = window.jQuery = require('jquery');</script>  
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script src="./renderer.js"></script>
   </body>
 </html>

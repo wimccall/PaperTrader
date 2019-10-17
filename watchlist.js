@@ -1,6 +1,10 @@
+// This class controls the watchlist UI as well as the data maintenance.
+
 class watchlistTable {
     tableBody = document.getElementById("watchlistBody");
+    table = document.getElementById("watchlist");
     _watchList = ["WMT", "XOM", "AAPL", "BRK.B", "AMZN", "UNH", "MCK", "CVS", "T", "ABC"];
+    _priceElements = new Map();
     
     insertRow(tickerName) {
         let tr = this.tableBody.insertRow(-1);
@@ -12,17 +16,34 @@ class watchlistTable {
         let td2 = document.createElement("td");
         td2.id = "watchlistTickerPrice" + tickerName;
         tr.appendChild(td2);
+        this._priceElements.set(tickerName, td2);
+        let td3 = document.createElement("td");
+        var btn = document.createElement("BUTTON");
+        btn.addEventListener("click", function () { 
+            this.removeRow(tickerName);
+            api.unsubFromTopsStream(tickerName);
+            this._watchList.splice(this._watchList.indexOf(tickerName), 1 );
+        }.bind(this) );
+        btn.innerHTML = "-";   
+        td3.appendChild(btn);
+        tr.appendChild(td3);
     }
 
-    // TODO: cache tickers in a map for quicker access instead of alway looking them up
+    removeRow(tickerName) {
+        let tr = document.getElementById("watchlistTickerName" + tickerName).parentElement;
+        this.table.deleteRow(tr.rowIndex);
+        this._priceElements.delete(tickerName);
+    }
+
     updateLastPrice(tickerName, price) {
-        document.getElementById("watchlistTickerPrice" + tickerName).innerHTML = price;
+        this._priceElements.get(tickerName).innerHTML = price;
     }
 
     initializeTable() {
         for (var ticker of this._watchList) {
             this.insertRow(ticker);
         }
+        $( "#watchlistBody" ).sortable();
     }
 
     getList() {
