@@ -1,6 +1,12 @@
 // This class will be the global source or truth for the data used by this application.
 // All data is sourced from the api class.
 
+// Trading api class
+var { api } = require('../JS/IEXAPI');
+
+// Reactor
+var { reactor } = require('../JS/EventReactor')
+
 class Stock {
     symbol;
     name;
@@ -18,7 +24,6 @@ class StockData {
         this.updateTickerList();
         reactor.registerEvent('stockUpdated');
         
-        api.subToTopsStream(watchlist.getList());
         api.registerStreamCallback(this.updateStockInfo.bind(this));
     }
 
@@ -30,6 +35,10 @@ class StockData {
         for(var stock of data) {
             this.addStockToStockInfo(stock);
         }
+    }
+
+    addToWatchedStocks(ticker) {
+        api.subToTopsStream(ticker);
     }
 
     addStockToStockInfo(data) {

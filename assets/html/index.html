@@ -3,18 +3,23 @@
   <head>
     <meta charset="UTF-8">
     <title>Market moves</title>
+    <link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="../css/global.css">
   </head>
   <body>
-    <h2>Search:</h2>
-      <input type="text" id="tickerSearcher" class="search" placeholder="Search...">
-    <h1>Watch:</h1>
-    <div>
-    <table id="watchlist">
-      <thead>
+    <input type="text" id="tickerSearcher" class="search" placeholder="Search...">
+    <ul class="searchResults list-group" style="display: none;" id="searchList">
+    </ul>
+      
+    <h1 style="text-align:center">Watch List</h1>
+    <table id="watchlist" class="table table-hover">
+      <thead class="thead-light">
         <tr>
           <th>
             Ticker
+          </th>
+          <th>
+            Name
           </th>
           <th>
             Last price
@@ -26,8 +31,6 @@
       <tbody id="watchlistBody">
       </tbody>
     </table>
-    </div>
-    <!-- You can also require other files to run in this process -->
     <script>window.$ = window.jQuery = require('jquery');</script>  
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script src="../JS/renderer.js"></script>

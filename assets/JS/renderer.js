@@ -8,17 +8,18 @@
 // Watchlist class. Takes care of the list itself and the accompanying UI
 var { watchlist } = require("../JS/watchlist");
 
-// Trading api class
-var { api } = require('../JS/IEXAPI');
-
 // Search class
 var { search } = require('../JS/searchstock');
 
-// Reactor
-var { reactor } = require('../JS/EventReactor')
 
-// StockDataModel
-var { StockData } = require('../JS/StockDataModel')
+
+function _titleCase(str) {
+    str = str.toLowerCase().split(' ');
+    for (var i = 0; i < str.length; i++) {
+        str[i] = str[i].charAt(0).toUpperCase() + str[i].slice(1); 
+    }
+    return str.join(' ');
+}
 
 // ** RENDERER **
 watchlist.initializeTable();
