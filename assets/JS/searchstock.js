@@ -29,12 +29,20 @@ class stockSearch {
 
     _insertResult(result) {
         var li = document.createElement('li');
-        li.innerHTML = _titleCase(result.name);
+        li.innerHTML += _titleCase(result.name);
         li.classList.add("list-group-item");
         li.classList.add("bg-light");
+        li.classList.add("justify-content-between");
+        li.classList.add("d-flex");
         li.addEventListener("click", function () {
             this.resultClicked(result.symbol)
         }.bind(this));
+        var spanSymbol = document.createElement('span'); 
+        spanSymbol.classList.add("badge");
+        spanSymbol.classList.add("badge-primary");
+        spanSymbol.classList.add("badge-pill");
+        spanSymbol.innerText = result.symbol;
+        li.appendChild(spanSymbol);
         this.searchList.appendChild(li);
     }
 
@@ -53,6 +61,8 @@ class stockSearch {
         // First, get stocks by their symbol
         var index = StockData._binarySearchStockInfo(str);
         var i = 0;
+
+        // This should only be true in an exact match, I think...
         if (StockData.stockInfo[index + i].symbol.startsWith(str))
             results.push(StockData.stockInfo[index + i]);
         while(true) {

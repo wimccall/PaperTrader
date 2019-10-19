@@ -18,7 +18,6 @@ class watchlistTable {
 
     
     insertRow(tickerName) {
-        StockData.addToWatchedStocks(tickerName);
         let tr = this.tableBody.insertRow(-1);
         let td1 = document.createElement("td");
         td1.id = "watchlistTickerSymbol" + tickerName;
@@ -39,8 +38,6 @@ class watchlistTable {
         btn.classList.add("btn-outline-danger");
         btn.addEventListener("click", function () { 
             this.removeRow(tickerName);
-            api.unsubFromTopsStream(tickerName);
-            this._watchList.splice(this._watchList.indexOf(tickerName), 1 );
         }.bind(this) );
         btn.innerHTML = "-";   
         td4.appendChild(btn);
@@ -48,15 +45,18 @@ class watchlistTable {
     }
 
     addToWatchlist(ticker) {
+        this.insertRow(ticker);
+        StockData.addToWatchedStocks(ticker);
         if (this._watchList.includes(ticker)) return;
         this._watchList.push(ticker);
-        this.insertRow(ticker);
     }
 
     removeRow(tickerName) {
         let tr = this._priceElements.get(tickerName).parentElement;
         this.table.deleteRow(tr.rowIndex);
         this._priceElements.delete(tickerName);
+        StockData.removeFromWatchedStocks(tickerName);
+        this._watchList.splice(this._watchList.indexOf(tickerName), 1 );
     }
 
     updateLastPrice(stock) {
@@ -67,7 +67,7 @@ class watchlistTable {
 
     initializeTable() {
         for (var ticker of this._watchList) {
-            this.insertRow(ticker);
+            this.addToWatchlist(ticker);
         }
         reactor.addEventListener('stockUpdated', this.updateLastPrice.bind(this))
         $("#watchlistBody").sortable();

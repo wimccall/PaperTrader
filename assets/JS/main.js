@@ -14,7 +14,6 @@ function createWindow () {
   mainWindow = new BrowserWindow({
     width: w,
     height: h,
-    backgroundColor: '#97e8e8',
     resizable : true,
     show: false,
     webPreferences: {
@@ -22,6 +21,8 @@ function createWindow () {
       preload: path.join(__dirname, 'preload.js')
     }
   });
+
+  mainWindow.setMenuBarVisibility(false)
 
   // and load the index.html of the app.
   mainWindow.loadFile('assets/html/index.html');

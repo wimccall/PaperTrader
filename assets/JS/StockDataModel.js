@@ -41,6 +41,10 @@ class StockData {
         api.subToTopsStream(ticker);
     }
 
+    removeFromWatchedStocks(ticker) {
+        api.unsubFromTopsStream(ticker);
+    }
+
     addStockToStockInfo(data) {
         if (!data) return;
         var stock = new Stock();
