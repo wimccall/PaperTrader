@@ -1,5 +1,6 @@
 // Handles the search bar data and UI. 
-// This class is very tightly coupled to the api interface.
+
+// Watchlist
 var { watchlist } = require("../JS/watchlist");
 
 // StockDataModel
@@ -76,6 +77,9 @@ class stockSearch {
         // If we don't already have 10 results, look by name
         if (results.length < 10) {
             var nameResults = StockData.stockInfo.filter(x => x.name.startsWith(str));
+            nameResults = nameResults.filter(function(e) {
+                return !(results.some(x => x.symbol == e.symbol));
+            })
             results = results.concat(nameResults);
             results = results.slice(0, 10);
         }

@@ -1,8 +1,5 @@
 // This class controls the watchlist UI as well as the data maintenance.
 
-// Trading api class
-var { api } = require('../JS/IEXAPI');
-
 // Reactor
 var { reactor } = require('../JS/EventReactor')
 

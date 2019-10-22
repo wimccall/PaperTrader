@@ -24,7 +24,7 @@ class StockData {
         this.updateTickerList();
         reactor.registerEvent('stockUpdated');
         
-        api.registerStreamCallback(this.updateStockInfo.bind(this));
+        api.registerStreamCallback(this._updateStockInfo.bind(this));
     }
 
     updateTickerList() {
@@ -53,7 +53,7 @@ class StockData {
             stock.symbol = data.symbol;
             insertIndex = this._binarySearchStockInfo(data.symbol);
             if(this.stockInfo[insertIndex] != null && this.stockInfo[insertIndex].symbol == data.symbol) {
-                this.updateStockInfo(data);
+                this._updateStockInfo(data);
                 return; // Do not create duplicate symbols
             }
         } else {
@@ -71,7 +71,23 @@ class StockData {
         this.stockInfo.splice(insertIndex, 0, stock);
     }
 
-    updateStockInfo(data) {
+
+    // Expects an object with your search criteria as a field
+    // Supports symbol or name
+    getStockData(data) {
+        if (data.ticker) {
+            var index = _binarySearchStockInfo(data.symbol);
+            if (this.stockInfo[index].symbol == data.symbol)
+                return this.stockInfo[index]
+        }
+        if (data.name) {
+            var res = StockData.stockInfo.filter(x => x.name.startsWith(str));
+            if (res[0].name == data.name) return res[0];
+        }
+        return undefined;
+    }
+
+    _updateStockInfo(data) {
         if (data.symbol == null) return;
         var index = this._binarySearchStockInfo(data.symbol);
         if (this.stockInfo[index] == null) return;
