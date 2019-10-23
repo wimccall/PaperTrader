@@ -6,6 +6,10 @@ var { watchlist } = require("../JS/watchlist");
 // StockDataModel
 var { StockData } = require('../JS/StockDataModel')
 
+// Utils
+var { Utils } = require('../JS/utils')
+
+
 class stockSearch {
     searchBar;
     searchList;
@@ -30,7 +34,7 @@ class stockSearch {
 
     _insertResult(result) {
         var li = document.createElement('li');
-        li.innerHTML += _titleCase(result.name);
+        li.innerHTML += Utils._titleCase(result.name);
         li.classList.add("list-group-item");
         li.classList.add("bg-light");
         li.classList.add("justify-content-between");

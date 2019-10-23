@@ -6,6 +6,9 @@ var { reactor } = require('../JS/EventReactor')
 // StockDataModel
 var { StockData } = require('../JS/StockDataModel')
 
+// Utils
+var { Utils } = require('../JS/utils')
+
 class watchlistTable {
     tableBody = document.getElementById("watchlistBody");
     table = document.getElementById("watchlist");
@@ -59,7 +62,7 @@ class watchlistTable {
     updateLastPrice(stock) {
         if (!this._watchList.includes(stock.symbol)) return;
         this._priceElements.get(stock.symbol).innerHTML = stock.lastSalePrice;
-        this._nameElements.get(stock.symbol).innerHTML = _titleCase(stock.name);
+        this._nameElements.get(stock.symbol).innerHTML = Utils._titleCase(stock.name);
     }
 
     initializeTable() {
