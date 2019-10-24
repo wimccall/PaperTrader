@@ -9,6 +9,12 @@
 input, button, textarea, :focus {
     outline: none;
 }
+.handle {
+    background-image: url('../images/draggable.png');
+    background-size: 25px;
+    background-repeat: no-repeat; /* Do not repeat the icon image */
+    background-position: 15px 16px; /* Position the search icon */
+}
 .search {
     background-image: url('../images/searchicon.svg'); /* Add a search icon to input */
     background-position: 10px 12px; /* Position the search icon */
@@ -25,6 +31,7 @@ input, button, textarea, :focus {
     width: 100%; /* Full-width */
     font-size: 16px; /* Increase font-size */
     padding: 0 0 0 0; /* Add some padding */
+    z-index: 10;
 }
 
 .searchResults li {
@@ -33,4 +40,13 @@ input, button, textarea, :focus {
 
 .searchResults li:hover {
     background-color: rgb(197, 253, 234) !important;
+}
+
+.ui-placeholder{
+    background-color: rgb(197, 253, 234, .6) !important;
+}
+
+/*override table hover color*/
+.table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
+    background-color: rgb(58, 228, 163);
 }

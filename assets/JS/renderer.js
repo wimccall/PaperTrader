@@ -11,7 +11,8 @@ var { watchlist } = require("../JS/watchlist");
 // Search class
 var { search } = require('../JS/searchstock');
 
-
+var { Portfolio } = require('../JS/Portfolio');
+var currentPortfolio = new Portfolio(10000);
 
 // ** RENDERER **
 watchlist.initializeTable();

@@ -5,8 +5,8 @@ var { StockData } = require('../JS/StockDataModel')
 // This class may throw exceptions! See here for exception codes.
 //  example: {code: someVal, message: "some message"}
 var PortfolioExceptionEnum = {
-    DataNotInitialized = 0,
-    NotEnoughCash = 1,
+    DataNotInitialized: 0,
+    NotEnoughCash: 1,
 }
 
 class PortfolioException {
@@ -27,7 +27,7 @@ class Portfolio {
     cash;
     Securities;
     constructor(cashAmount) {
-        cash = (typeof cashAmount === "number") ? cashAmount : 0;
+        this.cash = (typeof cashAmount === "number") ? cashAmount : 0;
         this.Securities = [];
     }
 

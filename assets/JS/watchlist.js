@@ -19,6 +19,9 @@ class watchlistTable {
     
     insertRow(tickerName) {
         let tr = this.tableBody.insertRow(-1);
+        let td0 = document.createElement("td");
+        td0.classList.add('handle');
+        tr.appendChild(td0);
         let td1 = document.createElement("td");
         td1.id = "watchlistTickerSymbol" + tickerName;
         let text = document.createTextNode(tickerName);
@@ -70,7 +73,25 @@ class watchlistTable {
             this.addToWatchlist(ticker);
         }
         reactor.addEventListener('stockUpdated', this.updateLastPrice.bind(this))
-        $("#watchlistBody").sortable();
+        $("#watchlistBody").sortable({ 
+            handle: '.handle' ,
+            placeholder: 'ui-placeholder',
+            refreshPositions: true,
+            opacity: 0.6,
+            scroll: true,
+            containment: 'parent',
+            helper: function(e, tr)
+            {
+              var $originals = tr.children();
+              var $helper = tr.clone();
+              $helper.children().each(function(index)
+              {
+                // Set helper cell sizes to match the original sizes
+                $(this).width($originals.eq(index).outerWidth());
+              });
+              return $helper;
+            },
+        });
     }
 
     getList() {
