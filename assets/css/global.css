@@ -46,6 +46,10 @@ input, button, textarea, :focus {
     background-color: rgb(197, 253, 234, .6) !important;
 }
 
+.table{
+    margin-bottom: 0;
+}
+
 /*override table hover color*/
 .table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
     background-color: rgb(58, 228, 163);

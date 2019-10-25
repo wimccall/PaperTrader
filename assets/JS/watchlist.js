@@ -87,7 +87,7 @@ class watchlistTable {
               $helper.children().each(function(index)
               {
                 // Set helper cell sizes to match the original sizes
-                $(this).width($originals.eq(index).outerWidth());
+                $(this).outerWidth($originals.eq(index).outerWidth());
               });
               return $helper;
             },
